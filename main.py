@@ -1,3 +1,4 @@
+import copy
 from CreateMatrix import *
 from LU import *
 from Determinant import *
@@ -10,10 +11,16 @@ app = Matrix()
 # create A,b and Matrix
 mat_A , mat_b , mat_total = app.Create_Matrix()
 
+mat_A_copy = copy.deepcopy(mat_A)
+mat_total_copy = copy.deepcopy(mat_total)
+
 # create LU
 lu = LU(mat_A)
 mat_U,mat_L = lu.solve()
 
+# determinant
+deteminant = Determinant(mat_A)
+det_answ = deteminant.determinantOfMatrix()
 print(""" 
 ======Menu======
 1) Print input matrix
@@ -27,7 +34,7 @@ print("""
       """)
 
 menu = True
-while(menu):
+while(menu):    
     vorodi = int(input("\n\n Your Input : "))
     if vorodi == 1:
         print(f"your matrix is {mat_total}")
@@ -40,7 +47,7 @@ while(menu):
     if vorodi == 2:
         lu.print_LU()
         check = check_answer(mat_L,mat_U)
-        check.check(mat_A)
+        check.check(mat_A_copy)
 
     if vorodi == 3:
         y_answers = []
@@ -145,9 +152,7 @@ while(menu):
             index += 1
     
     if vorodi == 4:
-        deteminant = Determinant(mat_A)
-        det = deteminant.determinantOfMatrix()
-        print("Determinant of the matrix is : ", det)
+        print(f"Determinant of the matrix is : {det_answ}")
 
     if vorodi == 5:
         row_len = len(mat_A)
@@ -328,15 +333,15 @@ while(menu):
             except:
                 print("Wrong Value")
                 continue
-        a = Det_R_C(mat_A, q.split(" "))
+        a = Det_R_C(mat_A_copy, q.split(" "))
         matrix__2 = a.changeMatrix_by_input()
-        row = matrix__2[0]
+        row__2 = matrix__2[0]
         print("Deteminant is : ")
-        print(a.solve(row=row,matrix=matrix__2))
-        a.show_calculation(row=row,matrix=matrix__2)
+        print(a.solve(row=row__2,matrix=matrix__2))
+        a.show_calculation(row=row__2,matrix=matrix__2)
         
     if vorodi == 7:
-        matrix__3 = mat_total
+        matrix__3 = mat_total_copy
         matrix__3 = switch_zarib_1(matrix__3)
         matrix__3 = goas_jorden(matrix__3)
         matrix__3 = normalize_matrix(matrix__3)

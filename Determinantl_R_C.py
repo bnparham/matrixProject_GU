@@ -1,4 +1,6 @@
 from Determinant import *
+import copy
+
 
 class Det_R_C:
     def __init__(self,matrix,command):
@@ -9,7 +11,7 @@ class Det_R_C:
         return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
                     
     def changeMatrix_by_input(self):
-        matrix = self.matrix
+        matrix = copy.deepcopy(self.matrix)
         row = int(self.command[1])-1
         if(self.command[0] == "r"):
             matrix[0],matrix[row] = matrix[row],matrix[0]
@@ -48,8 +50,17 @@ class Det_R_C:
             new_smaller_matrix = self.smaller_matrix(matrix,0,i)
             deteminant = Determinant(new_smaller_matrix)
             det = deteminant.determinantOfMatrix()
-            li.append((row[i] * det) * pow(-1,i+1)) 
-        return sum(li)
+            li.append((row[i] * det) * pow(-1,i+1))
+        
+        answ = sum(li)
+        deet = Determinant(self.matrix)
+        deet = deet.determinantOfMatrix()
+        if(deet < 0):
+            answ = abs(answ) * -1
+        else:
+            answ = abs(answ)
+        
+        return answ
     
     def show_calculation(self,row,matrix): 
         smaller_li = []
