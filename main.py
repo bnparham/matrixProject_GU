@@ -4,6 +4,7 @@ from LU import *
 from Determinant import *
 from Determinantl_R_C import *
 from Goas import *
+from LU_goas_Jordan import *
 
 print("===|Welcome To our Program|=== ")
 print("\n----- Create Ax=b -----\n")
@@ -12,6 +13,7 @@ app = Matrix()
 mat_A , mat_b , mat_total = app.Create_Matrix()
 
 mat_A_copy = copy.deepcopy(mat_A)
+mat_A_copy2 = copy.deepcopy(mat_A)
 mat_total_copy = copy.deepcopy(mat_total)
 
 # create LU
@@ -21,15 +23,18 @@ mat_U,mat_L = lu.solve()
 # determinant
 deteminant = Determinant(mat_A)
 det_answ = deteminant.determinantOfMatrix()
+
+
 print(""" 
 ======Menu======
 1) Print input matrix
 2) Print and calculate LU of input matrix
 3) Calculate equation with LU Method
 4) Calculate Determinant with LU method
-5) Calculate Revese of Matirs with LU method
+5) Calculate Ineverse of Matirs with LU method
 6) Calculate Determinant By specifying the desired row or column number
 7) Calculate equation with Goas Jordan method
+8) Calculate LU with Goas Jordan method
 
       """)
 
@@ -39,13 +44,13 @@ while(menu):
     if vorodi == 1:
         print(f"your matrix is {mat_total}")
         print("Ax = b")
-        print(f"A : {mat_A}")
+        print(f"A : {mat_A_copy}")
         print(f"b : {mat_b}")
         print("--------------------------")
-        print(f"{mat_A}x = {mat_b} ")
+        print(f"{mat_A_copy}x = {mat_b} ")
         
     if vorodi == 2:
-        lu.print_LU()
+        lu.print_LU(mat_U,mat_L)
         check = check_answer(mat_L,mat_U)
         check.check(mat_A_copy)
 
@@ -312,8 +317,8 @@ while(menu):
         print(f"x keys in Dict format : {x_keys}")
         print(f"x keys in List format : {x_keys_list}")
 
-        print(f"Reverse of matrix is => {reverse_matrix} ")
-        print("\n\n======Reverse Matrix is======")
+        print(f"Inverse of matrix in LU method is => {reverse_matrix} ")
+        print("\n\n======Inverse Matrix in LU method is======")
         for i in range(row_len):
             # Lower
             for j in range(row_len):
@@ -324,7 +329,7 @@ while(menu):
         error = True
         while(error):   
             try:
-                q = input("Write c/r and number of that | ex: 'c 1'")
+                q = input("Write c/r and number of that | ex: 'c 1' : ")
                 if(len(q.split(" ")) == 2):
                     error = False
                 else:
@@ -333,12 +338,11 @@ while(menu):
             except:
                 print("Wrong Value")
                 continue
-        a = Det_R_C(mat_A_copy, q.split(" "))
-        matrix__2 = a.changeMatrix_by_input()
+        a = Det_R_C()
+        matrix__2 = a.changeMatrix_by_input(q.split(" "),mat_A_copy2)
         row__2 = matrix__2[0]
-        print("Deteminant is : ")
+        print("Deteminant is : ")        
         print(a.solve(row=row__2,matrix=matrix__2))
-        a.show_calculation(row=row__2,matrix=matrix__2)
         
     if vorodi == 7:
         matrix__3 = mat_total_copy
@@ -403,3 +407,16 @@ while(menu):
             print(f"x[{index}] = {mat_x[index]}")
             index += 1
         print("==========================")
+        
+    if vorodi == 8 :
+        lu_goas =  LU_goas()
+        print("inverse is :")
+        print(lu_goas.inverse(mat_A_copy2))
+        if type(lu_goas.inverse(mat_A_copy2)) == list:
+            mat = lu_goas.inverse(mat_A_copy2)
+            row = len(mat)
+            print("=====Inverse in Goas jordan method=====")
+            for i in range(row):
+                for j in range(row):
+                    print(mat[i][j], end="\t")
+                print("", end="\n")

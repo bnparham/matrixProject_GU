@@ -51,10 +51,10 @@ class LU:
         return upper,lower
 
     # متد نمایش تجزیه ال یو
-    def print_LU(self):
+    def print_LU(self,upper,lower):
         mat = self.matrix
         row = len(mat)
-        upper,lower = self.solve()
+        # upper,lower = self.solve()
         
         print(f"Lower matrix is {lower}")
         print("============================================")

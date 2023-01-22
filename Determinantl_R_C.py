@@ -3,20 +3,22 @@ import copy
 
 
 class Det_R_C:
-    def __init__(self,matrix,command):
-        self.matrix = matrix
-        self.command = command
-        
+    def __init__(self):
+        self.matrix = None 
+        self.command = None
+              
     def transpose(self,matrix):
+        matrix = copy.deepcopy(matrix)
         return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
                     
-    def changeMatrix_by_input(self):
-        matrix = copy.deepcopy(self.matrix)
-        row = int(self.command[1])-1
-        if(self.command[0] == "r"):
-            matrix[0],matrix[row] = matrix[row],matrix[0]
-            return matrix
-        elif(self.command[0] == "c"):
+    def changeMatrix_by_input(self,command,matrix):
+        self.matrix = copy.deepcopy(matrix)
+        self.command = command
+        row = int(command[1])-1
+        if(command[0] == "r"):
+            self.matrix[0],self.matrix[row] = self.matrix[row],self.matrix[0]
+            return self.matrix
+        elif(command[0] == "c"):
             t_matrix = self.transpose(self.matrix)
             t_matrix[0],t_matrix[row] = t_matrix[row],t_matrix[0]
             return t_matrix
@@ -56,7 +58,7 @@ class Det_R_C:
         deet = Determinant(self.matrix)
         deet = deet.determinantOfMatrix()
         if(deet < 0):
-            answ = abs(answ) * -1
+            answ = abs(answ)*(-1)
         else:
             answ = abs(answ)
         
