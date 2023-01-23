@@ -5,6 +5,8 @@ from Determinant import *
 from Determinantl_R_C import *
 from Goas import *
 from LU_goas_Jordan import *
+from keramer import *
+
 
 print("===|Welcome To our Program|=== ")
 print("\n----- Create Ax=b -----\n")
@@ -35,6 +37,7 @@ print("""
 6) Calculate Determinant By specifying the desired row or column number
 7) Calculate equation with Goas Jordan method
 8) Calculate LU with Goas Jordan method
+9) Calculate eqation with ceramer method
 
       """)
 
@@ -360,7 +363,6 @@ while(menu):
         
         print(f"after goas jordan : {li_total_goas}")
         
-        
         keys_y = {'a':0,'b':0,'c':0,'d':0,'e':0,'f':0}
         for j in range(len(li_total_goas)):
             if j == 0:
@@ -420,3 +422,10 @@ while(menu):
                 for j in range(row):
                     print(mat[i][j], end="\t")
                 print("", end="\n")
+    if vorodi == 9:
+        c = cramer()
+        li = c.ceramer(mat_A_copy2,mat_b)
+        index = 0
+        for i in li:
+            print(f"x[{index}] = {li[index]}")
+            index += 1
