@@ -1,3 +1,5 @@
+from print_graphic_matrix import *
+
 class LU:
     def __init__(self,matrix):
         self.matrix = matrix
@@ -97,8 +99,14 @@ class check_answer:
                 for k in range(len(B)):
                     result[i][j] += A[i][k] * B[k][j]
         
-        print(f"result is : {result} ") 
+        print(f"result is : {result} ")
+        
+        print_graphic_matrix(result)
+        print("=====================")
+        
         print(f"your first matrix is : {FirstMatrix} ")
+        print_graphic_matrix(FirstMatrix)
+        print("================")
 
         if(result == FirstMatrix):
             print("The calculations are correct")

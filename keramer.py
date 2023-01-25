@@ -43,12 +43,12 @@ class cramer:
             x_answers.append(det_mat_cramer/det_mat_asli)
         return x_answers
         
-matrix = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,14]
-]
-b = [1,1,1]
+# matrix = [
+#     [1,2,3],
+#     [4,5,6],
+#     [7,8,14]
+# ]
+# b = [1,1,1]
 
-a = cramer()
-print(a.ceramer(matrix,b))
+# a = cramer()
+# print(a.ceramer(matrix,b))
